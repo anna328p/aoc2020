@@ -8,4 +8,4 @@ input = File.readlines(ARGV[0] || 'input.txt')
 
 i = input.map(&:to_i)
 
-p i.combination(3).find { |a, b, c| a + b + c == 2020 }.inject(:*)
+p i.combination(3).find { _1.sum == 2020 }.inject(:*)

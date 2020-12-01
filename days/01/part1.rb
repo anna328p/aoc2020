@@ -6,11 +6,6 @@
 
 input = File.readlines(ARGV[0] || 'input.txt')
 
-
 i = input.map(&:to_i)
 
-s = i.map do |a|
-  i.flat_map { |b| a + b == 2020 ? [a, b] : nil }.reject(&:nil?)
-end.reject { |s| s == []}
-
-p s[0].inject(:*)
+p i.combination(2).find { |a, b| a + b == 2020 }.inject(:*)

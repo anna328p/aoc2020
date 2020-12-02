@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'benchmark'
+
 # AoC 2020
 # Day 1
 # Part 2

@@ -16,7 +16,6 @@ def try_run inp
   loop do
     visited << ip
     if visited != visited.uniq
-      puts acc
       return false
     end
 

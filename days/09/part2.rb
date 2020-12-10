@@ -1,33 +1,49 @@
 #!/usr/bin/env ruby
 
+require 'benchmark'
+
 # AoC 2020
 # Day 9
 # Part 1
 
 input = File.readlines(ARGV[0] || 'input.txt').map(&:to_i)
 
-
-num = nil;
-input.each.with_index do |v, idx|
-  if idx < 25
-    next
-  end
-
-  sums = input[(idx-25)..(idx)].combination(2).map(&:sum)
-  if !sums.include? v
-    num = v
-    break
-  end
+def get_number(input)
+  input
+    .each_with_index
+    .drop(25)
+    .map { |v, idx|
+      [v,
+       input[idx-25..idx]
+        .combination(2)
+        .map(&:sum)
+      ]
+    }
+    .reject { |v, sums| sums.include? v }
+    .map(&:first)
+    .first
 end
 
+def find_sums(input, num)
+  i, j = 0, 0
 
-(0..input.length).each do |i|
-  (i..input.length).each do |j|
+  loop do
     nums = input[i..j]
     sum = nums.sum
-    if sum == num
-      puts nums.min + nums.max
-      exit 0
+    if sum > num
+      i += 1
+      next
+    elsif sum == num
+      return nums.min + nums.max
     end
+    j += 1
+  end
 end
+
+num = get_number input
+puts find_sums input, num
+
+Benchmark.bm(20) do |b|
+  b.report("part 1 (100 runs):") { 100.times { get_number input } }
+  b.report("part 2 (100 runs):") { 100.times { find_sums input, num } }
 end

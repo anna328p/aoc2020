@@ -163,7 +163,7 @@ uint64_t run_part2(int *init_cups, int iters) {
 
 
 	for (int iter = 0; iter < iters; iter++) {
-		if (iter % 100000 == 0) fprintf(stderr, "iteration %d\n", iter);
+		if (DEBUG) fprintf(stderr, "iteration %d\n", iter);
 		iteration(cups, node_map, LIST_SIZE);
 		cups = cups->next;
 	}

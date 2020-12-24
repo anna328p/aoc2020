@@ -85,8 +85,6 @@ end
 
 old = tiles.dup
 100.times do
-  puts "Turn #{_1}"
-
   old.each do |coords|
     surr = surroundings(coords) + [coords]
 
